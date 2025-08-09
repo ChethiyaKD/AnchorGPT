@@ -1,5 +1,7 @@
 # AnchorGPT (ChatGPT Pins)
 
+![ChatGPT Pins screenshot](.github/assets/ssOne.png)
+
 Pin important assistant messages in ChatGPT so you can jump back to them later. A lightweight Chrome extension built with React 18 and Manifest V3.
 
 ## Features
