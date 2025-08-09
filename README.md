@@ -1,133 +1,106 @@
-# React Chrome Extension Boilerplate
+# AnchorGPT (ChatGPT Pins)
 
-A modern Chrome extension boilerplate built with React 18, Webpack 5, and modern JavaScript tooling.
+Pin important assistant messages in ChatGPT so you can jump back to them later. A lightweight Chrome extension built with React 18 and Manifest V3.
 
 ## Features
 
-- ⚛️ **React 18** with modern hooks and features
-- 🛠️ **Webpack 5** for efficient bundling
-- 🎨 **Sass/SCSS** support for styling
-- 📦 **Modern ES6+** JavaScript with Babel transpilation
-- 🔧 **Hot reloading** for development
-- 📱 **Chrome Extension Manifest V3** compatible
+- Pin/unpin any assistant message in ChatGPT with a small 📌 button
+- Quick-jump sidebar: hover the right edge to reveal your pinned steps
+- Click a pin to scroll to and briefly highlight the original message
+- Pins are stored per chat and synced via `chrome.storage.sync`
+- Safe Shadow DOM UI, no CSS bleed; zero external network requests
+- Built on React 18 + Webpack 5; Manifest V3 compatible
+
+## How it works
+
+- A content script injects a Shadow DOM app into ChatGPT pages and watches for new assistant messages.
+- Each assistant message gets a 📌 button; clicking it toggles a pin `{ id, label, ts }`.
+- Pins are saved under the current chat id (parsed from the URL) in `chrome.storage.sync`.
+- A minimal sidebar appears when you move your mouse to the right edge; use it to navigate or clear pins for the current chat.
 
 ## Prerequisites
 
-- Node.js (v14 or higher)
-- Yarn package manager
-- Google Chrome browser
+- Node.js >= 16
+- Yarn or npm
+- Google Chrome (or a Chromium-based browser that supports Manifest V3)
 
-## Installation
+## Setup
 
-1. Clone the repository:
-   ```bash
-   git clone <your-repo-url>
-   cd react-chrome-extension
-   ```
-
-2. Install dependencies:
-   ```bash
-   yarn
-   ```
-
-## Development
-
-### Development Mode
-Run the development server with hot reloading:
 ```bash
-yarn dev
+git clone <your-repo-url>
+cd chatgpt-pins
+yarn   # or: npm install
 ```
 
-This will:
-- Watch for file changes
-- Automatically rebuild the extension
-- Enable hot reloading for faster development
+## Build
 
-### Production Build
-Build the extension for production:
+Create a production build into `dist/`:
+
 ```bash
 yarn build
 ```
 
-This creates optimized, minified files ready for distribution.
+## Development (watch rebuilds)
 
-## Loading the Extension in Chrome
+Rebuild on file changes into `dist/`:
 
-1. Open Chrome and navigate to `chrome://extensions/`
-2. Enable "Developer mode" in the top right corner
-3. Click "Load unpacked" and select the `dist` folder (after running `yarn build`) or the `public` folder (for development)
-4. The extension should now appear in your extensions list
-
-## Project Structure
-
-```
-├── public/
-│   ├── manifest.json          # Chrome extension manifest
-│   └── icons/                 # Extension icons
-├── src/
-│   ├── popup.jsx             # Extension popup component
-│   ├── content.jsx           # Content script
-│   ├── background.jsx        # Background script
-│   ├── popup.html            # Popup HTML template
-│   └── controllers/          # Utility controllers
-├── webpack.config.js         # Base webpack configuration
-├── webpack.dev.js           # Development webpack config
-├── webpack.prod.js          # Production webpack config
-└── package.json
+```bash
+yarn dev
 ```
 
-## Configuration
+Then keep `chrome://extensions` open and click Reload on the extension after changes. (Manifest V3 does not auto-reload content scripts.)
 
-### Webpack Entry Points
-Configure your JavaScript entry points in **webpack.config.js**:
-```javascript
-entry: {
-  popup: "./src/popup.jsx",
-  content: "./src/content.jsx",
-  background: "./src/background.jsx",
-},
+## Load in Chrome
+
+1. Open `chrome://extensions`
+2. Enable Developer mode (top-right)
+3. Click “Load unpacked” and select the `dist/` folder
+4. Open ChatGPT and you should see small 📌 buttons on assistant messages
+
+## Usage
+
+- Click the 📌 on any assistant message to pin/unpin it
+- Hover the far right edge of the window to reveal the sidebar
+- Click a pin to jump to the original message (it will briefly highlight)
+- Use the “Clear” button in the sidebar to remove all pins for the current chat
+
+## Scripts
+
+- `yarn dev` – watch and rebuild into `dist/`
+- `yarn build` – production build into `dist/`
+- `yarn zip` – package the current `dist/` as `extension.zip`
+
+## Permissions & Privacy
+
+- Permissions: `storage` only
+- Data: Pins are stored in `chrome.storage.sync` under a single key; no external requests; no analytics
+
+## Compatibility
+
+- Chrome (MV3). Likely compatible with Edge/Brave/Arc. Firefox is not supported (MV3 differences).
+
+## Project structure
+
+```
+chatgpt-pins/
+├─ public/
+│  └─ manifest.json           # MV3 manifest (name: AnchorGPT)
+├─ src/
+│  ├─ content.jsx             # Injects the app into ChatGPT pages
+│  ├─ background.jsx          # Service worker (MV3)
+│  ├─ popup.{html,jsx}        # Browser action popup
+│  ├─ ui/                     # Shadow DOM UI (Sidebar, Pins, etc.)
+│  └─ lib/                    # DOM helpers, observer, storage, router, styles
+├─ webpack*.js                # Webpack base/dev/prod configs
+└─ dist/                      # Build output (load this in Chrome)
 ```
 
-### Chrome Extension Manifest
-Update the `public/manifest.json` file to configure your extension's permissions, icons, and behavior.
+## Tech stack
 
-## React 18 Features
-
-This boilerplate uses React 18 with the following modern features:
-- **Concurrent Features** for better performance
-- **Automatic Batching** for state updates
-- **Suspense** for data fetching
-- **New Root API** with `createRoot`
-
-## Dependencies
-
-### Core Dependencies
-- **React 18.2.0** - Modern React with latest features
-- **React DOM 18.2.0** - React rendering for web
-- **React Custom Checkbox** - Custom checkbox components
-- **React Flags Select** - Country flag selection
-- **React Select Search** - Searchable select components
-
-### Development Dependencies
-- **Webpack 5** - Module bundler
-- **Babel 7** - JavaScript transpiler
-- **Sass** - CSS preprocessor
-- **Various loaders** for handling different file types
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+- React 18, React DOM 18
+- Webpack 5, Babel
+- Manifest V3
 
 ## License
 
-ISC License
-
-## Support
-
-For issues and questions, please open an issue on the repository.
-
-# AnchorGPT
+ISC

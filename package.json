@@ -1,11 +1,12 @@
 {
-  "name": "reactjs-chrome-extension",
+  "name": "anchor-gpt",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "dev": "webpack --watch --config webpack.dev.js"
+    "dev": "webpack --watch --config webpack.dev.js",
+    "zip": "zip -r extension.zip dist"
   },
   "author": "",
   "license": "ISC",
