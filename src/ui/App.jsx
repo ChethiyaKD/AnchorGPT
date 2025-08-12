@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Sidebar from "./Sidebar.jsx";
+import ConversationPinner from "./ConversationPinner.jsx";
 import { startMessageObserver } from "../lib/observer.js";
 import { injectShadowStyles } from "../lib/styles.js";
 
@@ -13,5 +14,10 @@ export default function App({ shadowRoot }) {
     };
   }, [shadowRoot]);
 
-  return <Sidebar />;
+  return (
+    <>
+      <Sidebar />
+      <ConversationPinner />
+    </>
+  );
 }
