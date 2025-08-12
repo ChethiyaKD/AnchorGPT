@@ -2,6 +2,8 @@
 
 ![ChatGPT Pins screenshot](.github/assets/ssOne.png)
 
+<a href="https://www.producthunt.com/products/anchorgpt?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-anchorgpt" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1004556&theme=dark&t=1755022475857" alt="AnchorGPT - Pin&#0044;&#0032;organize&#0032;&#0038;&#0032;jump&#0032;to&#0032;ChatGPT&#0032;messages&#0032;instantly&#0046; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+
 Pin important assistant messages in ChatGPT so you can jump back to them later. A lightweight Chrome extension built with React 18 and Manifest V3.
 
 ## Features
